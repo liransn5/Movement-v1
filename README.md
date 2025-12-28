@@ -18,7 +18,7 @@ Before running the application, ensure you have the following installed and conf
 ## Getting Started
 
 1. **Clone the repository**
-git clone https://github.com/liransn5/Movement-v3.git
+git clone https://github.com/liransn5/Movement-v1.git
 
 2. Update the connection string in `appsettings.json` to match your SQL Server credentials:
 ```json
