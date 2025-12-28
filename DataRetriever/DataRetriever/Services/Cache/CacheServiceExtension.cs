@@ -1,4 +1,4 @@
-﻿using DataRetriever.Services.Cache.CacheStorages;
+using DataRetriever.Services.Cache.CacheStorages;
 using DataRetriever.Services.Cache.Config.Validators;
 using DataRetriever.Services.Cache.Config;
 using DataRetriever.Services.Cache.EvictionPolicies;
@@ -20,10 +20,12 @@ public static class CacheServiceCollectionExtensions
         {
             var config = sp.GetRequiredService<IOptions<InMemoryStorageConfig>>().Value;
             var validator = sp.GetRequiredService<IConfigValidator<InMemoryStorageConfig>>();
+            var logger = sp.GetRequiredService<ILogger<Cache<string, string>>>();
 
             return new SdcsCache<string, string>(
                 new InMemoryStorage<string, string>(config, validator),
-                new LruEvictionPolicy<string>());
+                new LruEvictionPolicy<string>(),
+                logger);
         });
 
         return services;
@@ -44,10 +46,12 @@ public static class CacheServiceCollectionExtensions
         {
             var cfg = sp.GetRequiredService<IOptions<RedisStorageConfig>>().Value;
             var redis = sp.GetRequiredService<IConnectionMultiplexer>();
+            var logger = sp.GetRequiredService<ILogger<Cache<string, string>>>();
 
             return new RedisCache<string, string>(
                 new RedisStorage<string, string>(redis, cfg),
-                new NoEvictionPolicy<string>());
+                new NoEvictionPolicy<string>(),
+                logger);
         });
 
         return services;
