@@ -8,12 +8,12 @@ public class Cache<TKey, TValue> : ICache<TKey, TValue>
 {
     private readonly ICacheStorage<TKey, TValue> _storage;
     private readonly IEvictionPolicy<TKey> _policy;
-    private readonly Logger<Cache<TKey, TValue>> _logger;
+    private readonly ILogger<Cache<TKey, TValue>> _logger;
     private readonly SemaphoreSlim _semaphore = new(1, 1);
 
     public Cache(ICacheStorage<TKey, TValue> storage,
         IEvictionPolicy<TKey> policy,
-        Logger<Cache<TKey, TValue>> logger)
+        ILogger<Cache<TKey, TValue>> logger)
     {
         _storage = storage;
         _policy = policy;
