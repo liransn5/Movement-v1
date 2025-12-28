@@ -14,12 +14,12 @@ public interface IRedisCache<TKey, TValue> : ICache<TKey, TValue> { }
 
 public class RedisCache<TKey, TValue> : Cache<TKey, TValue>, IRedisCache<TKey, TValue>
 {
-    public RedisCache(ICacheStorage<TKey, TValue> storage, IEvictionPolicy<TKey> eviction)
-        : base(storage, eviction) { }
+    public RedisCache(ICacheStorage<TKey, TValue> storage, IEvictionPolicy<TKey> eviction, ILogger<Cache<TKey, TValue>> logger)
+        : base(storage, eviction, logger) { }
 }
 
 public class SdcsCache<TKey, TValue> : Cache<TKey, TValue>, ISdcsCache<TKey, TValue>
 {
-    public SdcsCache(ICacheStorage<TKey, TValue> storage, IEvictionPolicy<TKey> eviction)
-        : base(storage, eviction) { }
+    public SdcsCache(ICacheStorage<TKey, TValue> storage, IEvictionPolicy<TKey> eviction, ILogger<Cache<TKey, TValue>> logger)
+        : base(storage, eviction, logger) { }
 }
